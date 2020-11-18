@@ -49,7 +49,6 @@ export class ArticlesComponent implements OnInit {
         this.router.navigateByUrl(`/kategori/${categoryName}/${categoryId}/sayfa/${this.page}`);
         break;  
       
-      
       default:
         break;  
     }
