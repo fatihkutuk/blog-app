@@ -1,0 +1,67 @@
+<div class="card bg-light" style="height: 500px;" *ngIf="articleService.loading">
+  <div class="card-body text-center">
+    <h3>Yazı Yükleniyor</h3>
+    <div class="spinner-grow text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-secondary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-success" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-danger" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-warning" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-info" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-light" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-dark" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</div>
+
+<div class="card border-primary" *ngIf="!articleService.loading">
+
+  <div class="card-header">
+    <h3>{{ article.title }}</h3>
+    <div>
+      <span class="badge badge-pill badge-dark">
+        <i class="fa fa-calender"></i>
+        {{article.publishDate | date:'dd.MM.yy'}}
+      </span>
+
+      <span class="mr-1"></span>
+
+      <span class="badge badge-pill badge-success">
+        <i class="fa fa-folder"></i>
+        {{category.name}}
+      </span>
+
+      <span class="mr-1"></span>
+
+      <span class="badge badge-pill badge-danger">
+        <i class="fa fa-eye"></i>
+        {{article.viewCount}}
+      </span>
+
+      <span class="mr-1"></span>
+
+      <span class="badge badge-pill badge-warning">
+        <i class="fa fa-comment"></i>
+        {{article.commentCount}}
+      </span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div [innerHTML]="article.contentMain" class=""></div>
+  </div>
+
+</div>

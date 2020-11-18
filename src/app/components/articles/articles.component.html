@@ -1,0 +1,108 @@
+<div *ngIf="articleService.loading==true">
+  <main *ngFor="let item of createRange()" class="page mb-2">
+
+    <!-- Title -->
+
+    <!-- Content -->
+    <div class="page-content">
+
+      <!-- Placeholder Content -->
+      <div class="placeholder-content">
+        <div class="placeholder-content_item"></div>
+        <div class="placeholder-content_item"></div>
+        <div class="placeholder-content_item"></div>
+        <div class="placeholder-content_item"></div>
+        <div class="placeholder-content_item"></div>
+        <div class="placeholder-content_item"></div>
+        <div class="placeholder-content_item"></div>
+        <div class="placeholder-content_item"></div>
+        <div class="placeholder-content_item"></div>
+        <div class="placeholder-content_item"></div>
+        <div class="placeholder-content_item"></div>
+      </div>
+
+    </div>
+
+  </main>
+</div>
+
+
+<div *ngIf="articles; else emptyTemplate">
+  <div *ngFor="let item of articles 
+  | paginate : 
+  {
+    itemsPerPage:pageSize,
+    currentPage:page,
+    totalItems:totalCount
+  }
+  
+  " >
+
+    <ng-container
+      *ngTemplateOutlet="horizontalTemplate;context:{id:item.id,commentCount:item.commentCount,viewCount:item.viewCount,categoryName:item.category.name,publishDate:item.publishDate,contentSummary:item.contentSummary,title:item.title,picture:item.picture}">
+
+    </ng-container>
+  </div>
+</div>
+
+
+
+<ng-template #emptyTemplate>
+  <div class="alert alert-danger" role="alert">
+    Makale Bulunamadı
+  </div>
+</ng-template>
+
+<ng-template let-id="id" let-commentCount="commentCount" let-viewCount="viewCount" let-categoryName="categoryName"
+  let-publishDate="publishDate" let-picture="picture" let-title="title" let-contentSummary="contentSummary"
+  #horizontalTemplate>
+  <div class="card bg-light border-primary mb-2">
+    <div class="card-body ">
+      <div class="row">
+        <div class="col-md-3">
+          <img [src]="picture || default_article_image" class="card-img" alt="">
+        </div>
+        <div class="col-md-8">
+          <h2 class="card-title">{{title}}</h2>
+          <p class="card-text">{{contentSummary}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer bg-transparent border-primary">
+
+      <span class="badge badge-pill badge-dark">
+        <i class="fa fa-calender"></i>
+        {{publishDate | date:'dd.MM.yy'}}
+      </span>
+
+      <span class="mr-1"></span>
+
+      <span class="badge badge-pill badge-success">
+        <i class="fa fa-folder"></i>
+        {{categoryName}}
+      </span>
+
+      <span class="mr-1"></span>
+
+      <span class="badge badge-pill badge-danger">
+        <i class="fa fa-eye"></i>
+        {{viewCount}}
+      </span>
+
+      <span class="mr-1"></span>
+
+      <span class="badge badge-pill badge-warning">
+        <i class="fa fa-comment"></i>
+        {{commentCount}}
+      </span>
+
+      <a [routerLink]="['/makale',title | urlformat, id]" class="btn btn-primary btn-sm float-right">Devamını Oku</a>
+
+
+    </div>
+  </div>
+</ng-template>
+<pagination-controls (pageChange)="pageChanged($event)" (pageBoundsCorrection)="pageChanged($event)"
+  directionLinks="true" autoHide="true" responsive="true" previousLabel="Önceki" nextLabel="Sonraki"
+  screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="Bu Sayfadasın">
+</pagination-controls>
