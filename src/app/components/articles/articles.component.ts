@@ -48,7 +48,8 @@ export class ArticlesComponent implements OnInit {
         let categoryId = this.route.snapshot.paramMap.get("id");
         this.router.navigateByUrl(`/kategori/${categoryName}/${categoryId}/sayfa/${this.page}`);
         break;  
-        
+      
+      
       default:
         break;  
     }
